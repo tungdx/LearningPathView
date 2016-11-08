@@ -1,6 +1,11 @@
 package vn.tungdx.learningpathview.widgets;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -73,7 +78,18 @@ public class LearningPathView extends ViewGroup {
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
             LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
-            child.layout(layoutParams.marginLeft, layoutParams.yTop, layoutParams.marginLeft + child.getMeasuredWidth(), layoutParams.yTop + child.getMeasuredHeight());
+            int childLeft = layoutParams.marginLeft;
+            int childTop = layoutParams.yTop;
+            int childRight = layoutParams.marginLeft + child.getMeasuredWidth();
+            int childBottom = layoutParams.yTop + child.getMeasuredHeight();
+            child.layout(childLeft, childTop, childRight, childBottom);
+
+            if (i == 0) {
+                layoutParams.outPoint.set(childRight, childBottom - ((float) child.getMeasuredHeight() / 2));
+            } else {
+                layoutParams.inPoint.set(childRight - ((float) child.getMeasuredWidth() / 2), childTop);
+                layoutParams.outPoint.set(childRight - ((float) child.getMeasuredWidth() / 2), childBottom);
+            }
         }
     }
 
@@ -93,9 +109,52 @@ public class LearningPathView extends ViewGroup {
         }
     }
 
+    int w = getResources().getDisplayMetrics().widthPixels;
+    int h = getResources().getDisplayMetrics().heightPixels;
+
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(2);
+        paint.setColor(Color.RED);
+
+        int count = getChildCount();
+        for (int i = 0; i < count; i++) {
+            View child = getChildAt(i);
+            View nextChild = i < count - 1 ? getChildAt(i + 1) : null;
+            if (nextChild == null) {
+                return;
+            }
+            PointF outPoint = ((LayoutParams) child.getLayoutParams()).outPoint;
+            PointF inPoint = ((LayoutParams) nextChild.getLayoutParams()).inPoint;
+
+            Path path = new Path();
+            path.moveTo(outPoint.x / 2, outPoint.y);
+            path.cubicTo(outPoint.x, outPoint.y, (outPoint.x + inPoint.x) / 2, (outPoint.y + inPoint.y) / 2, inPoint.x, inPoint.y);
+
+            canvas.drawPath(path, paint);
+        }
+    }
+
+    private Path drawCurve(Canvas canvas, Paint paint, PointF mPointa, PointF mPointb) {
+
+        Path myPath = new Path();
+//        myPath.moveTo(63*w/64, h/40);
+        myPath.quadTo(mPointa.x, mPointa.y, mPointb.x, mPointb.y);
+        return myPath;
+    }
+
+
     public static class LayoutParams extends ViewGroup.LayoutParams {
         public int marginLeft;
         public int yTop;
+        public PointF inPoint = new PointF();
+        public PointF outPoint = new PointF();
 
         public LayoutParams(int width, int height) {
             super(width, height);
