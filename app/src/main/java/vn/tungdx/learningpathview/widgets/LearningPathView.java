@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import vn.tungdx.learningpathview.R;
+import vn.tungdx.learningpathview.entities.Curve;
 import vn.tungdx.learningpathview.entities.Item;
 
 /**
@@ -85,8 +86,8 @@ public class LearningPathView extends ViewGroup {
             child.layout(childLeft, childTop, childRight, childBottom);
 
             Item item = items.get(i);
-            String inPos = item.inPos != null ? item.inPos : "";
-            String outPos = item.outPos != null ? item.outPos : "";
+            String inPos = item.curve.inPos != null ? item.curve.inPos : "";
+            String outPos = item.curve.outPos != null ? item.curve.outPos : "";
             calculateInOutPoint(child, inPos, layoutParams.inPoint);
             calculateInOutPoint(child, outPos, layoutParams.outPoint);
         }
@@ -99,16 +100,16 @@ public class LearningPathView extends ViewGroup {
         int childRight = layoutParams.marginLeft + child.getMeasuredWidth();
         int childBottom = layoutParams.yTop + child.getMeasuredHeight();
         switch (pos) {
-            case Item.Pos.LEFT:
+            case Curve.GatePos.LEFT:
                 inOutPoint.set(childLeft, childBottom - ((float) child.getMeasuredHeight() / 2));
                 break;
-            case Item.Pos.RIGHT:
+            case Curve.GatePos.RIGHT:
                 inOutPoint.set(childRight, childBottom - ((float) child.getMeasuredHeight() / 2));
                 break;
-            case Item.Pos.TOP:
+            case Curve.GatePos.TOP:
                 inOutPoint.set(childRight - ((float) child.getMeasuredWidth() / 2), childTop);
                 break;
-            case Item.Pos.BOTTOM:
+            case Curve.GatePos.BOTTOM:
                 inOutPoint.set(childRight - ((float) child.getMeasuredWidth() / 2), childBottom);
                 break;
         }
@@ -160,9 +161,9 @@ public class LearningPathView extends ViewGroup {
 //            path.cubicTo(outPoint.x, outPoint.y, (outPoint.x + inPoint.x) / 2, (outPoint.y + inPoint.y) / 2, inPoint.x, inPoint.y);
 
             Item item = items.get(i);
-            float x1 = Item.CurveType.RIGHT.equals(item.curveType) ? outPoint.x + inPoint.x : Math.abs(outPoint.x - inPoint.x);
-            x1 = x1 / item.controlX;
-            float y1 = (outPoint.y + inPoint.y) / item.controlY;
+            float x1 = Curve.CurveType.RIGHT.equals(item.curve.curveType) ? outPoint.x + inPoint.x : Math.abs(outPoint.x - inPoint.x);
+            x1 = x1 / item.curve.controlX;
+            float y1 = (outPoint.y + inPoint.y) / item.curve.controlY;
             path.quadTo(x1, y1, inPoint.x, inPoint.y);
 
             canvas.drawPath(path, paint);
