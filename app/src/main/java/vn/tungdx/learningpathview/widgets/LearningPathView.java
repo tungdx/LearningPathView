@@ -84,14 +84,36 @@ public class LearningPathView extends ViewGroup {
             int childBottom = layoutParams.yTop + child.getMeasuredHeight();
             child.layout(childLeft, childTop, childRight, childBottom);
 
-            if (i == 0) {
-                layoutParams.outPoint.set(childRight, childBottom - ((float) child.getMeasuredHeight() / 2));
-            } else {
-                layoutParams.inPoint.set(childRight - ((float) child.getMeasuredWidth() / 2), childTop);
-                layoutParams.outPoint.set(childRight - ((float) child.getMeasuredWidth() / 2), childBottom);
-            }
+            Item item = items.get(i);
+            String inPos = item.inPos != null ? item.inPos : "";
+            String outPos = item.outPos != null ? item.outPos : "";
+            calculateInOutPoint(child, inPos, layoutParams.inPoint);
+            calculateInOutPoint(child, outPos, layoutParams.outPoint);
         }
     }
+
+    private void calculateInOutPoint(View child, String pos, PointF inOutPoint) {
+        LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
+        int childLeft = layoutParams.marginLeft;
+        int childTop = layoutParams.yTop;
+        int childRight = layoutParams.marginLeft + child.getMeasuredWidth();
+        int childBottom = layoutParams.yTop + child.getMeasuredHeight();
+        switch (pos) {
+            case Item.Pos.LEFT:
+                inOutPoint.set(childLeft, childBottom - ((float) child.getMeasuredHeight() / 2));
+                break;
+            case Item.Pos.RIGHT:
+                inOutPoint.set(childRight, childBottom - ((float) child.getMeasuredHeight() / 2));
+                break;
+            case Item.Pos.TOP:
+                inOutPoint.set(childRight - ((float) child.getMeasuredWidth() / 2), childTop);
+                break;
+            case Item.Pos.BOTTOM:
+                inOutPoint.set(childRight - ((float) child.getMeasuredWidth() / 2), childBottom);
+                break;
+        }
+    }
+
 
     public int dipToPixels(Context context, int dipValue) {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
@@ -134,19 +156,12 @@ public class LearningPathView extends ViewGroup {
             PointF inPoint = ((LayoutParams) nextChild.getLayoutParams()).inPoint;
 
             Path path = new Path();
-            path.moveTo(outPoint.x / 2, outPoint.y);
-            path.cubicTo(outPoint.x, outPoint.y, (outPoint.x + inPoint.x) / 2, (outPoint.y + inPoint.y) / 2, inPoint.x, inPoint.y);
+            path.moveTo(outPoint.x, outPoint.y);
+//            path.cubicTo(outPoint.x, outPoint.y, (outPoint.x + inPoint.x) / 2, (outPoint.y + inPoint.y) / 2, inPoint.x, inPoint.y);
+            path.quadTo((outPoint.x + inPoint.x), (outPoint.y + inPoint.y) / 3, inPoint.x, inPoint.y);
 
             canvas.drawPath(path, paint);
         }
-    }
-
-    private Path drawCurve(Canvas canvas, Paint paint, PointF mPointa, PointF mPointb) {
-
-        Path myPath = new Path();
-//        myPath.moveTo(63*w/64, h/40);
-        myPath.quadTo(mPointa.x, mPointa.y, mPointb.x, mPointb.y);
-        return myPath;
     }
 
 

@@ -5,7 +5,8 @@
     "bg_color": "blue",
     "text": "First time greeting",
     "y_top": 5,
-    "margin_left": 10
+    "margin_left": 10,
+    "out_pos": "right"
   },
   {
     "id": 2,
@@ -13,15 +14,19 @@
     "bg_color": "blue",
     "text": "Introducing someone 1",
     "y_top": 30,
-    "margin_left": 20
+    "margin_left": 20,
+    "in_pos": "right",
+    "out_pos": "left"
   },
   {
     "id": 3,
     "icon": "two_people",
     "bg_color": "blue",
     "text": "Introducing someone 2",
-    "y_top": 20,
-    "margin_left": 20
+    "y_top": 60,
+    "margin_left": -120,
+    "in_pos": "top",
+    "out_pos": "right"
   },
   {
     "id": 3,
@@ -29,6 +34,18 @@
     "bg_color": "blue",
     "text": "Introducing someone 3",
     "y_top": 80,
-    "margin_left": -60
+    "margin_left": 60,
+    "in_pos": "left",
+    "out_pos": "right"
+  },
+  {
+    "id": 3,
+    "icon": "two_people",
+    "bg_color": "blue",
+    "text": "Introducing someone 3",
+    "y_top": 50,
+    "margin_left": 0,
+    "in_pos": "bottom",
+    "out_pos": "top"
   }
 ]

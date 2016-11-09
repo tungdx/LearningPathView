@@ -7,6 +7,13 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Item {
+    public static class Pos {
+        public static final String LEFT = "left";
+        public static final String RIGHT = "right";
+        public static final String TOP = "top";
+        public static final String BOTTOM = "bottom";
+    }
+
     @SerializedName("id")
     public int id;
     @SerializedName("icon")
@@ -19,4 +26,9 @@ public class Item {
     public int yTop;
     @SerializedName("margin_left")
     public int marginLeft;
+    @SerializedName("in_pos")
+    public String inPos;
+    @SerializedName("out_pos")
+    public String outPos;
+
 }
