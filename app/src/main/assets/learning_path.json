@@ -6,7 +6,9 @@
     "text": "First time greeting",
     "y_top": 5,
     "margin_left": 10,
-    "out_pos": "right"
+    "out_pos": "right",
+    "curve_type": "right",
+    "control_y": 3
   },
   {
     "id": 2,
@@ -15,8 +17,10 @@
     "text": "Introducing someone 1",
     "y_top": 30,
     "margin_left": 20,
-    "in_pos": "right",
-    "out_pos": "left"
+    "in_pos": "top",
+    "out_pos": "left",
+    "curve_type": "left",
+    "control_y": 2
   },
   {
     "id": 3,
@@ -26,20 +30,25 @@
     "y_top": 60,
     "margin_left": -120,
     "in_pos": "top",
-    "out_pos": "right"
+    "out_pos": "bottom",
+    "curve_type": "left",
+    "control_y": 1.6
   },
   {
-    "id": 3,
+    "id": 4,
     "icon": "two_people",
     "bg_color": "blue",
     "text": "Introducing someone 3",
     "y_top": 80,
     "margin_left": 60,
     "in_pos": "left",
-    "out_pos": "right"
+    "out_pos": "right",
+    "curve_type": "right",
+    "control_y": 1.8,
+    "control_x": 2
   },
   {
-    "id": 3,
+    "id": 5,
     "icon": "two_people",
     "bg_color": "blue",
     "text": "Introducing someone 3",

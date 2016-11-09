@@ -158,7 +158,12 @@ public class LearningPathView extends ViewGroup {
             Path path = new Path();
             path.moveTo(outPoint.x, outPoint.y);
 //            path.cubicTo(outPoint.x, outPoint.y, (outPoint.x + inPoint.x) / 2, (outPoint.y + inPoint.y) / 2, inPoint.x, inPoint.y);
-            path.quadTo((outPoint.x + inPoint.x), (outPoint.y + inPoint.y) / 3, inPoint.x, inPoint.y);
+
+            Item item = items.get(i);
+            float x1 = Item.CurveType.RIGHT.equals(item.curveType) ? outPoint.x + inPoint.x : Math.abs(outPoint.x - inPoint.x);
+            x1 = x1 / item.controlX;
+            float y1 = (outPoint.y + inPoint.y) / item.controlY;
+            path.quadTo(x1, y1, inPoint.x, inPoint.y);
 
             canvas.drawPath(path, paint);
         }
