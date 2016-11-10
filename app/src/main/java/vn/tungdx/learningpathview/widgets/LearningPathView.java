@@ -19,6 +19,7 @@ import java.util.List;
 import vn.tungdx.learningpathview.R;
 import vn.tungdx.learningpathview.entities.Curve;
 import vn.tungdx.learningpathview.entities.Item;
+import vn.tungdx.learningpathview.entities.SmallCurve;
 
 /**
  * Created by TUNGDX on 11/3/2016.
@@ -133,7 +134,7 @@ public class LearningPathView extends ViewGroup {
         }
     }
 
-    DashPathEffect dashPathEffect = new DashPathEffect(new float[]{1.0f, 15.0f}, 0);
+    DashPathEffect dashPathEffect = new DashPathEffect(new float[]{1.0f, 25.0f}, 0);
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
@@ -159,13 +160,34 @@ public class LearningPathView extends ViewGroup {
 
             Path path = new Path();
             path.moveTo(outPoint.x, outPoint.y);
-//            path.cubicTo(outPoint.x, outPoint.y, (outPoint.x + inPoint.x) / 2, (outPoint.y + inPoint.y) / 2, inPoint.x, inPoint.y);
 
             Item item = items.get(i);
-            float x1 = Curve.CurveType.RIGHT.equals(item.curve.curveType) ? outPoint.x + inPoint.x : Math.abs(outPoint.x - inPoint.x);
-            x1 = x1 / item.curve.controlX;
-            float y1 = (outPoint.y + inPoint.y) / item.curve.controlY;
-            path.quadTo(x1, y1, inPoint.x, inPoint.y);
+
+            List<SmallCurve> smallCurves = item.curve.smallCurve;
+            if (smallCurves == null || smallCurves.size() == 0) {
+                continue;
+            }
+            if (smallCurves.size() == 1) {
+                SmallCurve small = smallCurves.get(0);
+
+                float x1 = Curve.CurveType.RIGHT.equals(small.curveType) ? outPoint.x + inPoint.x : Math.abs(outPoint.x - inPoint.x);
+                x1 = x1 / small.controlX;
+                float y1 = (outPoint.y + inPoint.y) / small.controlY;
+                path.quadTo(x1, y1, inPoint.x, inPoint.y);
+            } else {
+                SmallCurve small1 = smallCurves.get(0);
+                SmallCurve small2 = smallCurves.get(1);
+
+                float x1 = Curve.CurveType.RIGHT.equals(small1.curveType) ? outPoint.x + inPoint.x : Math.abs(outPoint.x - inPoint.x);
+                x1 = x1 / small1.controlX;
+                float y1 = (outPoint.y + inPoint.y) / small1.controlY;
+
+                float x2 = Curve.CurveType.RIGHT.equals(small2.curveType) ? outPoint.x + inPoint.x : Math.abs(outPoint.x - inPoint.x);
+                x2 = x2 / small2.controlX;
+                float y2 = (outPoint.y + inPoint.y) / small2.controlY;
+
+                path.cubicTo(x1, y1, x2, y2, inPoint.x, inPoint.y);
+            }
 
             canvas.drawPath(path, paint);
         }
