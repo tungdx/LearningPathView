@@ -11,7 +11,12 @@
       "small_curve": [
         {
           "curve_type": "right",
-          "control_y": 3
+          "control_y": 2
+        },
+        {
+          "curve_type": "left",
+          "control_y": 2,
+          "control_x": 2
         }
       ]
     }
@@ -48,6 +53,11 @@
         {
           "curve_type": "left",
           "control_y": 1.6
+        },
+        {
+          "curve_type": "right",
+          "control_y": 2.5,
+          "control_x": 2
         }
       ]
     }
