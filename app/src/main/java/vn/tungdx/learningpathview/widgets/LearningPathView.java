@@ -3,6 +3,7 @@ package vn.tungdx.learningpathview.widgets;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
@@ -132,19 +133,19 @@ public class LearningPathView extends ViewGroup {
         }
     }
 
-    int w = getResources().getDisplayMetrics().widthPixels;
-    int h = getResources().getDisplayMetrics().heightPixels;
-
+    DashPathEffect dashPathEffect = new DashPathEffect(new float[]{1.0f, 15.0f}, 0);
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
 
         Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(2);
         paint.setColor(Color.RED);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(10);
+        paint.setShadowLayer(1, 1, 1, Color.RED);
+        paint.setPathEffect(dashPathEffect);
+        paint.setStrokeCap(Paint.Cap.ROUND);
 
         int count = getChildCount();
         for (int i = 0; i < count; i++) {
