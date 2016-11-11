@@ -1,5 +1,7 @@
 package vn.tungdx.learningpathview.entities;
 
+import android.graphics.Color;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -22,5 +24,14 @@ public class Item {
     public int marginLeft;
     @SerializedName("curve")
     public Curve curve;
+    @SerializedName("curve_color")
+    private String curveColor;
 
+    public int getCurveColor() {
+        try {
+            return Color.parseColor(curveColor);
+        } catch (Exception ex) {
+            return Color.GRAY;
+        }
+    }
 }

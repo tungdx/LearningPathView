@@ -27,17 +27,36 @@ import vn.tungdx.learningpathview.entities.SmallCurve;
 
 public class LearningPathView extends ViewGroup {
     private List<Item> items;
+    private DashPathEffect dashPathEffect = new DashPathEffect(new float[]{1.0f, 25.0f}, 0);
+    private Paint paint = new Paint();
+
 
     public LearningPathView(Context context) {
         super(context);
+        init();
     }
 
     public LearningPathView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public LearningPathView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    private void init() {
+        setPaintColor(Color.GRAY);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(10);
+        paint.setPathEffect(dashPathEffect);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+    }
+
+    private void setPaintColor(int color) {
+        paint.setColor(color);
+        paint.setShadowLayer(1, 1, 1, color);
     }
 
     @Override
@@ -148,20 +167,9 @@ public class LearningPathView extends ViewGroup {
         }
     }
 
-    DashPathEffect dashPathEffect = new DashPathEffect(new float[]{1.0f, 25.0f}, 0);
-
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
-
-        Paint paint = new Paint();
-        paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(10);
-        paint.setShadowLayer(1, 1, 1, Color.RED);
-        paint.setPathEffect(dashPathEffect);
-        paint.setStrokeCap(Paint.Cap.ROUND);
-
         int count = getChildCount();
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
@@ -202,7 +210,7 @@ public class LearningPathView extends ViewGroup {
 
                 path.cubicTo(x1, y1, x2, y2, inPoint.x, inPoint.y);
             }
-
+            paint.setColor(item.getCurveColor());
             canvas.drawPath(path, paint);
         }
     }

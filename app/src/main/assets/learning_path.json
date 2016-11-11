@@ -6,6 +6,7 @@
     "text": "First time greeting",
     "y_top": 5,
     "margin_left": 10,
+    "curve_color": "#2196F3",
     "curve": {
       "out_pos": "right",
       "out_delta_dp": -10,
