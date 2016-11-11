@@ -13,12 +13,8 @@
       "small_curve": [
         {
           "curve_type": "right",
-          "control_y": 2
-        },
-        {
-          "curve_type": "left",
           "control_y": 2,
-          "control_x": 2
+          "control_x": 1
         }
       ]
     }
@@ -31,10 +27,10 @@
     "y_top": 30,
     "margin_left": 20,
     "curve": {
-      "in_pos": "top",
+      "in_pos": "right",
       "out_pos": "left",
-      "in_delta_dp": -10,
-      "out_delta_dp": -10,
+      "in_delta_dp": -20,
+      "out_delta_dp": 0,
       "small_curve": [
         {
           "curve_type": "left",
@@ -95,7 +91,64 @@
     "margin_left": 0,
     "curve": {
       "in_pos": "bottom",
-      "out_pos": "top"
+      "out_pos": "top",
+      "small_curve": [
+        {
+          "curve_type": "left",
+          "control_y": 3,
+          "control_x": 0.2
+        }
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "icon": "desc_routine",
+    "bg_color": "#2FB2CE",
+    "text": "Describing routines",
+    "y_top": 7,
+    "margin_left": 0,
+    "curve": {
+      "in_pos": "left",
+      "out_pos": "right",
+      "small_curve": [
+        {
+          "curve_type": "right",
+          "control_y": 4,
+          "control_x": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "icon": "shopping",
+    "bg_color": "#6DC6A3",
+    "text": "Shopping - I prefer\n the blue one",
+    "y_top": 40,
+    "margin_left": 20,
+    "curve": {
+      "in_pos": "top",
+      "out_pos": "bottom",
+      "small_curve": [
+        {
+          "curve_type": "left",
+          "control_y": 2.5,
+          "control_x": 0.25
+        }
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "icon": "price",
+    "bg_color": "#6DC6A3",
+    "text": "Prices - How much is it?",
+    "y_top": 80,
+    "margin_left": -100,
+    "curve": {
+      "in_pos": "top",
+      "out_pos": "right"
     }
   }
 ]
