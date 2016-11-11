@@ -38,7 +38,11 @@ public class ItemView extends LinearLayout {
         imageView.setImageResource(R.mipmap.ic_launcher);
     }
 
-    public float getImageViewX() {
+    public float getImageMarginLeft() {
         return ViewCompat.getX(imageView);
+    }
+
+    public float getImageMarginRight() {
+        return getWidth() - imageView.getWidth() - getImageMarginLeft();
     }
 }

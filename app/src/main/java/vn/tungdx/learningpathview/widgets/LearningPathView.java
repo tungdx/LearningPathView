@@ -126,12 +126,12 @@ public class LearningPathView extends ViewGroup {
             case Curve.GatePos.LEFT:
                 float y = childBottom - ((float) child.getMeasuredHeight() / 2);
                 y += convertDeltaToPixels(delta);
-                inOutPoint.set(childLeft + itemView.getImageViewX(), y);
+                inOutPoint.set(childLeft + itemView.getImageMarginLeft(), y);
                 break;
             case Curve.GatePos.RIGHT:
                 y = childBottom - ((float) child.getMeasuredHeight() / 2);
                 y += convertDeltaToPixels(delta);
-                inOutPoint.set(childRight - itemView.getImageViewX(), y);
+                inOutPoint.set(childRight - itemView.getImageMarginRight(), y);
                 break;
             case Curve.GatePos.TOP:
                 float x = childRight - ((float) child.getMeasuredWidth() / 2);
