@@ -1,12 +1,16 @@
 package vn.tungdx.learningpathview.widgets;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import vn.tungdx.learningpathview.R;
 import vn.tungdx.learningpathview.entities.Item;
 
@@ -16,7 +20,9 @@ import vn.tungdx.learningpathview.entities.Item;
 
 public class ItemView extends LinearLayout {
     private TextView textView;
-    private ImageView imageView;
+    private CircleImageView imageViewBackground;
+    private ImageView imageViewIcon;
+    private View imageContainer;
 
     public ItemView(Context context) {
         super(context);
@@ -30,19 +36,29 @@ public class ItemView extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         textView = (TextView) findViewById(R.id.text);
-        imageView = (ImageView) findViewById(R.id.image);
+        imageViewBackground = (CircleImageView) findViewById(R.id.imageBackground);
+        imageViewIcon = (ImageView) findViewById(R.id.imageIcon);
+        imageContainer = findViewById(R.id.imageContainer);
     }
 
     public void display(Item item) {
+        //text
         textView.setText(item.text);
-        imageView.setImageResource(R.mipmap.ic_launcher);
+
+        //bg color
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor(item.bgColor));
+        imageViewBackground.setImageDrawable(colorDrawable);
+
+        //icon
+        int resourceId = getResources().getIdentifier(item.icon, "drawable", getContext().getPackageName());
+        imageViewIcon.setImageResource(resourceId);
     }
 
     public float getImageMarginLeft() {
-        return ViewCompat.getX(imageView);
+        return ViewCompat.getX(imageContainer);
     }
 
     public float getImageMarginRight() {
-        return getWidth() - imageView.getWidth() - getImageMarginLeft();
+        return getWidth() - imageContainer.getWidth() - getImageMarginLeft();
     }
 }

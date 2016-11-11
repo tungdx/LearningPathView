@@ -1,8 +1,8 @@
 [
   {
     "id": 1,
-    "icon": "handshake",
-    "bg_color": "blue",
+    "icon": "first_greeting",
+    "bg_color": "#3CA1FA",
     "text": "First time greeting",
     "y_top": 5,
     "margin_left": 10,
@@ -25,9 +25,9 @@
   },
   {
     "id": 2,
-    "icon": "two_people",
-    "bg_color": "blue",
-    "text": "Introducing someone 1",
+    "icon": "intro_someone",
+    "bg_color": "#3CA1FA",
+    "text": "Introducing someone",
     "y_top": 30,
     "margin_left": 20,
     "curve": {
@@ -45,9 +45,9 @@
   },
   {
     "id": 3,
-    "icon": "two_people",
-    "bg_color": "blue",
-    "text": "Introducing someone 2",
+    "icon": "asking_someone",
+    "bg_color": "#3CA1FA",
+    "text": "Asking about someone",
     "y_top": 60,
     "margin_left": -120,
     "curve": {
@@ -69,9 +69,9 @@
   },
   {
     "id": 4,
-    "icon": "two_people",
-    "bg_color": "blue",
-    "text": "Introducing someone 3",
+    "icon": "desc_work",
+    "bg_color": "#3CA1FA",
+    "text": "Describing work",
     "y_top": 80,
     "margin_left": 60,
     "curve": {
@@ -88,9 +88,9 @@
   },
   {
     "id": 5,
-    "icon": "two_people",
-    "bg_color": "blue",
-    "text": "Introducing someone 3",
+    "icon": "daily_schedule",
+    "bg_color": "#2FB2CE",
+    "text": "Daily schedules",
     "y_top": 50,
     "margin_left": 0,
     "curve": {
