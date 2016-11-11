@@ -8,6 +8,7 @@
     "margin_left": 10,
     "curve": {
       "out_pos": "right",
+      "out_delta_dp": -10,
       "small_curve": [
         {
           "curve_type": "right",
@@ -31,6 +32,8 @@
     "curve": {
       "in_pos": "top",
       "out_pos": "left",
+      "in_delta_dp": -10,
+      "out_delta_dp": -10,
       "small_curve": [
         {
           "curve_type": "left",
@@ -49,6 +52,7 @@
     "curve": {
       "in_pos": "top",
       "out_pos": "bottom",
+      "out_delta_dp": 20,
       "small_curve": [
         {
           "curve_type": "left",

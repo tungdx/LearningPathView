@@ -90,12 +90,13 @@ public class LearningPathView extends ViewGroup {
             Item item = items.get(i);
             String inPos = item.curve.inPos != null ? item.curve.inPos : "";
             String outPos = item.curve.outPos != null ? item.curve.outPos : "";
-            calculateInOutPoint(child, inPos, layoutParams.inPoint);
-            calculateInOutPoint(child, outPos, layoutParams.outPoint);
+            calculateInOutPoint(child, inPos, layoutParams.inPoint, item.curve.inDelta);
+            calculateInOutPoint(child, outPos, layoutParams.outPoint, item.curve.outDelta);
         }
     }
 
-    private void calculateInOutPoint(View child, String pos, PointF inOutPoint) {
+    private void calculateInOutPoint(View child, String pos, PointF inOutPoint, int delta) {
+        ItemView itemView = (ItemView) child;
         LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
         int childLeft = layoutParams.marginLeft;
         int childTop = layoutParams.yTop;
@@ -103,22 +104,35 @@ public class LearningPathView extends ViewGroup {
         int childBottom = layoutParams.yTop + child.getMeasuredHeight();
         switch (pos) {
             case Curve.GatePos.LEFT:
-                inOutPoint.set(childLeft, childBottom - ((float) child.getMeasuredHeight() / 2));
+                float y = childBottom - ((float) child.getMeasuredHeight() / 2);
+                y += convertDeltaToPixels(delta);
+                inOutPoint.set(childLeft + itemView.getImageViewX(), y);
                 break;
             case Curve.GatePos.RIGHT:
-                inOutPoint.set(childRight, childBottom - ((float) child.getMeasuredHeight() / 2));
+                y = childBottom - ((float) child.getMeasuredHeight() / 2);
+                y += convertDeltaToPixels(delta);
+                inOutPoint.set(childRight - itemView.getImageViewX(), y);
                 break;
             case Curve.GatePos.TOP:
-                inOutPoint.set(childRight - ((float) child.getMeasuredWidth() / 2), childTop);
+                float x = childRight - ((float) child.getMeasuredWidth() / 2);
+                x += convertDeltaToPixels(delta);
+                inOutPoint.set(x, childTop);
                 break;
             case Curve.GatePos.BOTTOM:
-                inOutPoint.set(childRight - ((float) child.getMeasuredWidth() / 2), childBottom);
+                x = childRight - ((float) child.getMeasuredWidth() / 2);
+                x += convertDeltaToPixels(delta);
+                inOutPoint.set(x, childBottom);
                 break;
         }
     }
 
+    private int convertDeltaToPixels(int delta) {
+        if (delta == 0) return 0;
+        int sign = delta > 0 ? 1 : -1;
+        return sign * dipToPixels(getContext(), Math.abs(delta));
+    }
 
-    public int dipToPixels(Context context, int dipValue) {
+    private int dipToPixels(Context context, int dipValue) {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics);
     }

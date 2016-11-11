@@ -22,6 +22,10 @@ public class Curve {
     public String inPos;
     @SerializedName("out_pos")
     public String outPos;
+    @SerializedName("out_delta_dp")
+    public int outDelta = 0;
+    @SerializedName("in_delta_dp")
+    public int inDelta = 0;
     @SerializedName("small_curve")
     public List<SmallCurve> smallCurve;
 }

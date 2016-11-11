@@ -1,6 +1,7 @@
 package vn.tungdx.learningpathview.widgets;
 
 import android.content.Context;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,5 +36,9 @@ public class ItemView extends LinearLayout {
     public void display(Item item) {
         textView.setText(item.text);
         imageView.setImageResource(R.mipmap.ic_launcher);
+    }
+
+    public float getImageViewX() {
+        return ViewCompat.getX(imageView);
     }
 }
