@@ -2,6 +2,7 @@ package vn.tungdx.learningpathview;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,7 +13,9 @@ import java.util.List;
 
 import vn.tungdx.learningpathview.entities.Item;
 import vn.tungdx.learningpathview.utils.Utils;
+import vn.tungdx.learningpathview.widgets.ItemView;
 import vn.tungdx.learningpathview.widgets.LearningPathView;
+import vn.tungdx.learningpathview.widgets.OnItemViewClickListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,15 +38,17 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }).start();
-
-        //http://stackoverflow.com/questions/14888650/android-canvas-drawing-arc-between-to-points-and-removing-arc-from-path
-        //https://www.google.com/search?q=android+draw+curve+between+two+view&client=safari&rls=en&biw=1440&bih=736&tbm=nws&source=lnms&sa=X&ved=0ahUKEwidkJCy75XQAhXITrwKHSjlAfAQ_AUICCgB&dpr=2#q=android+draw+curve+between+two+view
     }
 
     private void setUI(List<Item> items) {
         setContentView(R.layout.activity_main);
         LearningPathView learningPathView = (LearningPathView) findViewById(R.id.learning_path);
 
-        learningPathView.display(items);
+        learningPathView.display(items, new OnItemViewClickListener() {
+            @Override
+            public void onItemViewClicked(ItemView itemView, Item item) {
+                Toast.makeText(MainActivity.this, item.text, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

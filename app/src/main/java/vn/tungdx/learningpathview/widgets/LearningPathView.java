@@ -27,6 +27,7 @@ import vn.tungdx.learningpathview.entities.SmallCurve;
 
 public class LearningPathView extends ViewGroup {
     private List<Item> items;
+    private OnItemViewClickListener onItemViewClickListener;
     private DashPathEffect dashPathEffect = new DashPathEffect(new float[]{1.0f, 25.0f}, 0);
     private Paint paint = new Paint();
 
@@ -156,16 +157,28 @@ public class LearningPathView extends ViewGroup {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics);
     }
 
-    public void display(List<Item> items) {
+    public void display(List<Item> items, OnItemViewClickListener onItemViewClickListener) {
         this.items = items;
+        this.onItemViewClickListener = onItemViewClickListener;
         removeAllViews();
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         for (Item item : items) {
             ItemView view = (ItemView) layoutInflater.inflate(R.layout.itemview, this, false);
             addView(view, new LayoutParams());
             view.display(item);
+            view.setTag(item);
+            view.setOnClickListener(onClickListener);
         }
     }
+
+    private OnClickListener onClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (onItemViewClickListener != null) {
+                onItemViewClickListener.onItemViewClicked((ItemView) view, (Item) view.getTag());
+            }
+        }
+    };
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
